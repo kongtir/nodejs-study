@@ -1,0 +1,4 @@
+启动目录 bin/www
+1 新建  routes\admin.js
+2 新建 src 放置源码:  src/admin src/home
+3 引入第三方库
