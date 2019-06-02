@@ -11,5 +11,6 @@ exports.reg = function (app) {
     app.get(["/admin/index","/admin"],adminAuthFiter.authorize,admin.index);
     app.get("/admin/roomlist",adminAuthFiter.authorize,admin.roomlist);
     app.post("/admin/addroom",adminAuthFiter.authorize,admin.addroom);
-
+    app.get("/admin/editroom",adminAuthFiter.authorize,admin.editroom);
+    app.post("/admin/editroom",adminAuthFiter.authorize,admin.doeditroom);
 };

@@ -15,7 +15,7 @@ const multer = require('multer'); //好像也是传文件的
 // 设置保存上传文件路径
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './public/upload')
+    cb(null, '../public/upload')
   },
   filename: function (req, file, cb) {
    // console.log(file);
@@ -44,11 +44,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 app.use(session({
   secret: 'keyboard cat',
   resave: true,
@@ -58,12 +55,16 @@ app.use(session({
 //  req.session.userinfo="zhangsan111"; /*设置session*/
 app.use(function (err, req, res, next) {
   if(err){
+    throw  err ;
     log4js.getLogger("err").error(err.stack);
     res.send(500,'服务器错误');
   }else next();
 });
 app.use(function (err, req, res, next) {
-  if(err) res.send(500,'出错呐');else next();
+  if(err) {
+    throw  err ;
+    res.send(500,'出错呐');
+  }else next();
 });
 process.on("uncaughtException",function (err) {
   log4js.getLogger("err").error("未处理的异常\r"+err.stack);

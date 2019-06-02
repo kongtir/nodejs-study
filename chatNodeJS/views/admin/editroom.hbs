@@ -1,0 +1,27 @@
+<form action="/admin/addroom" style="width: 450px" method="post" enctype="multipart/form-data">
+    <div class="line_grid">
+        <div class="g_3"><span class="label">名称</span></div>
+        <div class="g_9">
+            <input type="text" name="roomname" class="simple_field date_mask"/>
+        </div>
+        <div class="g_3"><span class="label">最大人数</span></div>
+        <div class="g_9">
+            <input type="number" step="1" name="roommaxsize" min="1" pattern="请输入最大人数" class="simple_field date_mask"/>
+        </div>
+        <div class="g_3"><span class="label">主题</span></div>
+        <div class="g_9">
+            <textarea type="text" name="roomsubject" class="simple_field date_mask" style="min-height: 60px;"> </textarea>
+        </div>
+        <div class="g_3"><span class="label">头像</span></div>
+        <div class="g_9">
+            <input type="file" name="roomphoto" id='roomphoto'   class="simple_field date_mask"/>
+        </div>
+
+        <input type="submit" value="添加聊天室" class="simple_buttons submitIt" style="margin-left:200px;">
+
+    </div>
+
+
+
+
+</form>

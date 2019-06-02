@@ -1,5 +1,23 @@
 //http://mongodb.github.io/node-mongodb-native/api-generated/db.html
 //参考地址 ,目前的封装有许多功能没有
+function fix2number(n) {
+    return [0,n].join('').slice(-2);
+}
+function getTime(format) {
+    var curDate = new Date();
+    if (format == undefined) return curDate;
+    format = format.replace(/Y/i, curdate.getFullYear());
+    format = format.replace(/m/i, fix2number(curdate.getMonth() + 1));
+    format = format.replace(/d/i, fix2number(curdate.getDate()));
+    format = format.replace(/H/i, fix2number(curdate.getHours()));
+    format = format.replace(/i/i, fix2number(curdate.getMinutes()));
+    format = format.replace(/s/i, fix2number(curdate.getSeconds()));
+    format = format.replace(/ms/i, curdate.getMilliseconds());
+    return format;
+}
+
+
+
 const mongodb = require('mongodb').MongoClient;// mongodb 操作包
 const config = require('./config').dbconf;//配置文件
 let state = null;// 根据状态判断是否有用户名
@@ -55,14 +73,14 @@ class app{// 定义基本类
     add(tableName,json){
         if(Array.isArray(json)){ //数组
              json.forEach(v=>{
-                 v.createTime= new Date();
-                 v.updateTime= new Date();
+                 v.createTime=  getTime('YYYY/mm/dd HH:ii:ss');
+                 v.updateTime= getTime('YYYY/mm/dd HH:ii:ss');
              });
         }else{
-            json.createTime= new Date();
-            json.updateTime= new Date();
+            json.createTime= getTime('YYYY/mm/dd HH:ii:ss');
+            json.updateTime= getTime('YYYY/mm/dd HH:ii:ss');
         }
-
+        console.log("---正在插入数据----",json);
         return new Promise((resolve,reject) =>{
             this.connect().then(db => {
                 db.collection(tableName).insertOne(json,(err,result) => {
